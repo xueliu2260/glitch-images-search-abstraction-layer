@@ -84,12 +84,18 @@ app.get("/api/imagesearch/:str", function (request, response) {
 });
 
 app.get("/api/latest/imagesearch/", function (request, response) {
-  var result = {};
-  
-  result = collection.find().sort({$natural:1}).limit(1).toArray();
-  
-  console.log(collection.find().sort({$natural:1}).limit(1).toArray());
-  response.send(result);
+  var result = collection.find().sort({_id:1}).limit(1).forEach( function(myDoc) { console.log( "user: " + myDoc.data ); } );;
+  collection.findOne({ '_id' : 1499810823184 }, function(err, docs) {
+    if(err) if(err) throw err;
+    if(docs == null) {
+      response.status(404).json({error:"This data is not on the database."});
+    }
+    else {
+      response.send(docs.data);
+    }    
+  });
+  // console.log(result);
+  // response.send(result);
   
 });
 // could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
