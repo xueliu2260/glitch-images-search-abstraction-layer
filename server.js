@@ -19,9 +19,13 @@ app.use(express.static('public'));
 app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
-
-app.get("/api/imagesearch/*", function (request, response) {
-  console.log(getAllUrlParams(request.url));
+var queryStr = "";
+var queryPage = 1;
+app.get("/api/imagesearch/:str", function (request, response) {
+  // console.log(getAllUrlParams(request.url).offset);
+  // console.log(request.params.str);
+  queryStr = request.params.str.toString();
+  queryPage = parseInt(getAllUrlParams(request.url).offset);
   response.send(dreams);
 });
 
@@ -38,7 +42,7 @@ const GoogleImages = require('google-images');
 const client = new GoogleImages('017999513681578927553:hwq-m42zzwq', 'AIzaSyDzJHUKZc1WuqYczCjCU7KZ5SYsxHTd7e0');
 
 
-	client.search('dogs' , {page: 2}).then(function (images){
+	client.search({query:queryStr} , {page: 2}).then(function (images){
 		//var gambar = JSON.parse(images)
 		// console.log(images.length);
 		//console.log(images[0].thumbnail.description);
