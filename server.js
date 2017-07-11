@@ -47,7 +47,7 @@ MongoClient.connect(url, function (err, db) {
     console.log('Connection established to ', url);
 
     // Create a collection
-    collection = db.collection('url-shortener-database');
+    collection = db.collection('Image-Search-Abstraction-Layer');
     // Insert the docs
 
 
@@ -76,12 +76,18 @@ app.get("/api/imagesearch/:str", function (request, response) {
     oneDream["thumbnail-parentPage"] = images[i].thumbnail.parentPage;
     dreams.push(oneDream);
   }
-    
-    response.send(dreams);
+  var id = Date.now();
+  collection.insertOne({"_id":id, "data": dreams});
+  response.send(dreams);
 	});
   
 });
 
+app.get("/api/latest/imagesearch/", function (request, response) {
+  var result = {};
+  response.send(result);
+  
+});
 // could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
 // app.post("/", function (request, response) {
 //   dreams.push(request.query.dream);
