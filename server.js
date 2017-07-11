@@ -98,21 +98,15 @@ app.get("/api/latest/imagesearch/", function (request, response) {
       // Create a collection
       collection = db.collection('Image-Search-Abstraction-Layer');
       // Insert the docs
-      var result = collection.find().sort({_id:1}).limit(1);
-      // collection.findOne({ '_id' : 1499810823184 }, function(err, docs) {
-      // if(err) if(err) throw err;
-      // if(docs == null) {
-      //   response.status(404).json({error:"This data is not on the database."});
-      // }
-      // else {
-      //   db.close();
-      //   response.send(docs.data);
-      // }    
-  // });
-      console.log(typeof result);
-      console.log(result);
+      var result = collection.find().sort({_id:-1}).limit(1);
+      result.on("data", function(data) {
+      //  console.log(typeof data);
+      // console.log(data);
       db.close();
-      response.send("result");
+      response.send(data.data);
+      });
+      
+      
       }
   })
   
