@@ -21,9 +21,40 @@ app.get("/", function (request, response) {
 });
 var queryStr = "";
 var queryPage = 1;
+
+//connect to goole customer search engine
 const GoogleImages = require('google-images');
  
 const client = new GoogleImages('017999513681578927553:hwq-m42zzwq', 'AIzaSyDzJHUKZc1WuqYczCjCU7KZ5SYsxHTd7e0');
+
+
+//connect to mongoDB
+var mongodb = require('mongodb');
+
+//We need to work with "MongoClient" interface in order to connect to a mongodb server.
+var MongoClient = mongodb.MongoClient;
+var test = require('assert');
+// // Connection URL. This is where your mongodb server is running.
+
+// //(Focus on This Variable)
+var url = 'mongodb://liuerbaozi2260:zja900530@ds137220.mlab.com:37220/glitch-project';      
+// //(Focus on This Variable)
+var collection;
+MongoClient.connect(url, function (err, db) {
+  if (err) {
+    console.log('Unable to connect to the mongoDB server. Error:', err);
+    } else {
+    console.log('Connection established to ', url);
+
+    // Create a collection
+    collection = db.collection('url-shortener-database');
+    // Insert the docs
+
+
+    }
+})
+
+
 app.get("/api/imagesearch/:str", function (request, response) {
   // console.log(getAllUrlParams(request.url).offset);
   // console.log(request.params.str);
@@ -34,17 +65,17 @@ app.get("/api/imagesearch/:str", function (request, response) {
 
 
 	client.search(queryStr , {page: queryPage}).then(function (images){
-		//var gambar = JSON.parse(images)
-		console.log(images.length);
-		//console.log(images[0].thumbnail.description);
-    for(var i = 0; i < images.length; i++){
-      var oneDream = {};
-      oneDream["url"] = images[i].url;
-      oneDream["thumbnail-url"] = images[i].thumbnail.url;
-      oneDream["thumbnail-description"] = images[i].thumbnail.description;
-      oneDream["thumbnail-parentPage"] = images[i].thumbnail.parentPage;
-      dreams.push(oneDream);
-    }
+  //var gambar = JSON.parse(images)
+  console.log(images.length);
+  //console.log(images[0].thumbnail.description);
+  for(var i = 0; i < images.length; i++){
+    var oneDream = {};
+    oneDream["url"] = images[i].url;
+    oneDream["thumbnail-url"] = images[i].thumbnail.url;
+    oneDream["thumbnail-description"] = images[i].thumbnail.description;
+    oneDream["thumbnail-parentPage"] = images[i].thumbnail.parentPage;
+    dreams.push(oneDream);
+  }
     
     response.send(dreams);
 	});
