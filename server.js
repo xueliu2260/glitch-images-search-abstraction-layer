@@ -109,6 +109,8 @@ app.get("/api/latest/imagesearch/", function (request, response) {
       //   response.send(docs.data);
       // }    
   // });
+        console.log(typeof result);
+        console.log(result);
       db.close();
       response.send(result);
       }
