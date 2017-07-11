@@ -99,16 +99,31 @@ app.get("/api/latest/imagesearch/", function (request, response) {
       collection = db.collection('Image-Search-Abstraction-Layer');
       // Insert the docs
       var result = collection.find().sort({_id:-1}).limit(1);
-      result.on("data", function(data) {
-      //  console.log(typeof data);
-      // console.log(data);
-      db.close();
-      response.send(data.data);
+        //console.log(result.pretty());
+      result.each(function(err, item) {
+
+        // If the item is null then the cursor is exhausted/empty and closed
+        if(item == null) {
+
+          // Show that the cursor is closed
+          result.toArray(function(err, items) {
+            result.ok(err != null);
+
+            // Let's close the db
+            db.close();
+          });
+          
+            
+        }else{
+          db.close();
+          response.send(item.data);
+        }
       });
       
       
-      }
-  })
+      
+    }
+})
   
   // console.log(result);
   // response.send(result);
