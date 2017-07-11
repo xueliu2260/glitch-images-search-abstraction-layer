@@ -21,12 +21,34 @@ app.get("/", function (request, response) {
 });
 var queryStr = "";
 var queryPage = 1;
+const GoogleImages = require('google-images');
+ 
+const client = new GoogleImages('017999513681578927553:hwq-m42zzwq', 'AIzaSyDzJHUKZc1WuqYczCjCU7KZ5SYsxHTd7e0');
 app.get("/api/imagesearch/:str", function (request, response) {
   // console.log(getAllUrlParams(request.url).offset);
   // console.log(request.params.str);
   queryStr = request.params.str.toString();
   queryPage = parseInt(getAllUrlParams(request.url).offset);
-  response.send(dreams);
+  var dreams = [];
+  
+
+
+	client.search(queryStr , {page: queryPage}).then(function (images){
+		//var gambar = JSON.parse(images)
+		console.log(images.length);
+		//console.log(images[0].thumbnail.description);
+    for(var i = 0; i < images.length; i++){
+      var oneDream = {};
+      oneDream["url"] = images[i].url;
+      oneDream["thumbnail-url"] = images[i].thumbnail.url;
+      oneDream["thumbnail-description"] = images[i].thumbnail.description;
+      oneDream["thumbnail-parentPage"] = images[i].thumbnail.parentPage;
+      dreams.push(oneDream);
+    }
+    
+    response.send(dreams);
+	});
+  
 });
 
 // could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
@@ -36,23 +58,7 @@ app.get("/api/imagesearch/:str", function (request, response) {
 // });
 
 // Simple in-memory store for now
-var dreams = [];
-const GoogleImages = require('google-images');
- 
-const client = new GoogleImages('017999513681578927553:hwq-m42zzwq', 'AIzaSyDzJHUKZc1WuqYczCjCU7KZ5SYsxHTd7e0');
 
-
-	client.search({query:queryStr} , {page: 2}).then(function (images){
-		//var gambar = JSON.parse(images)
-		// console.log(images.length);
-		//console.log(images[0].thumbnail.description);
-    var oneDream = {};
-    oneDream["url"] = images[0].url;
-    oneDream["thumbnail-url"] = images[0].thumbnail.url;
-    oneDream["thumbnail-description"] = images[0].thumbnail.description;
-    oneDream["thumbnail-parentPage"] = images[0].thumbnail.parentPage;
-    dreams.push(oneDream);
-	});
 
 
 
