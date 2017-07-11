@@ -85,6 +85,8 @@ app.get("/api/imagesearch/:str", function (request, response) {
 
 app.get("/api/latest/imagesearch/", function (request, response) {
   var result = {};
+  result = collection.find().sort({$natural:1}).limit(1).data;
+  console.log(collection.find().sort({_id:1}).limit(1));
   response.send(result);
   
 });
