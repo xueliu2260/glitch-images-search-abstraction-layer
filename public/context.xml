@@ -1,0 +1,16 @@
+<CustomSearchEngine id="_6zdjrkhn3a" creator="001058780666577659641" volunteers="false"
+keywords="" visible="false" encoding="UTF-8">
+   <Title>Hello World</Title>
+   <Description>Experimental search engine</Description>
+   <Context>
+     <BackgroundLabels>
+       <Label name="_cse_id" mode="FILTER"/>
+       <Label name="_cse_exclude_id" mode="ELIMINATE"/>
+     </BackgroundLabels>
+   </Context>
+  
+
+   <LookAndFeel/>
+   <AdSense/>
+   <EnterpriseAccount/>
+</CustomSearchEngine>  
