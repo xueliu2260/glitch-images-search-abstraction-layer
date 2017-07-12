@@ -22,7 +22,34 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
   
 });
-var getUri;
+
+const GoogleImages = require('google-images');
+
+const client = new GoogleImages('017999513681578927553:hwq-m42zzwq', 'AIzaSyDzJHUKZc1WuqYczCjCU7KZ5SYsxHTd7e0');
+
+client.search('Steve Angello')
+	.then(images => {
+		/*
+		[{
+			"url": "http://steveangello.com/boss.jpg",
+			"type": "image/jpeg",
+			"width": 1024,
+			"height": 768,
+			"size": 102451,
+			"thumbnail": {
+				"url": "http://steveangello.com/thumbnail.jpg",
+				"width": 512,
+				"height": 512
+			}
+		}]
+		 */
+	});
+
+// paginate results
+client.search('Steve Angello', {page: 2}).then(function(images){
+  
+});
+
 var mongodb = require('mongodb');
 
 //We need to work with "MongoClient" interface in order to connect to a mongodb server.
@@ -47,32 +74,14 @@ if (err) {
 
   }
 })
-app.get("/new/:shortcode", function (request, response) {
-  var shortCode = parseInt(request.params.shortcode);
-  //console.log("here");
-  collection.findOne({ '_id' : shortCode }, function(err, docs) {
-    if(err) if(err) throw err;
-    if(docs == null) {
-      response.status(404).json({error:"This url is not on the database."});
-    }
-    else {
-      response.redirect(docs.url);
-    }    
-  });
-});
-app.get("/new/*", function (request, response) {
-  getUri = request.params[0].toString();
-  var size = Date.now();
-    console.log(getUri);
-  if(validateUrl(getUri)){
-    collection.insertOne({"_id":size, "url": getUri});
-    response.status(200).json({_id:size, url:getUri});
-  }else{
-    response.status(500).json({error:"This url is not valid."});
-  }
+var querySearch;
+var queryPage;
+app.get("/api/imagesearch/:str", function (request, response) {
+  var querySearch = request.params.str;
   
-
 });
+
+  
 
 
 
