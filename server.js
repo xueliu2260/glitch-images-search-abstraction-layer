@@ -47,7 +47,8 @@ const client = new GoogleImages('017999513681578927553:hwq-m42zzwq', 'AIzaSyDzJH
 
 // // paginate results
 // client.search('Steve Angello', {page: 2}).then(function(images){
-  
+//   console.log("here");
+//   console.log(images.length);
 // });
 
 var mongodb = require('mongodb');
@@ -85,17 +86,18 @@ app.get("/api/imagesearch/:str", function (request, response) {
   // console.log(queryPage);
   client.search(querySearch, {page: queryPage}).then(function(images){
     console.log(images.length);
-    for(var i = 0; i < images.length; i++){
-      var result = {};
-      result["thumbnail-description"] = images[i].thumbnail.description;
-      result["thumbnail-parentPage"] = images[i].thumbnail.parentPage;
-      result["thumbnail-url"] = images[i].thumbnail.url;
-      result["url"] = images[i].url;
-      results.push(result);
-    }
-    console.log(results);
+  //   for(var i = 0; i < images.length; i++){
+  //     var result = {};
+  //     result["thumbnail-description"] = images[i].thumbnail.description;
+  //     result["thumbnail-parentPage"] = images[i].thumbnail.parentPage;
+  //     result["thumbnail-url"] = images[i].thumbnail.url;
+  //     result["url"] = images[i].url;
+  //     results.push(result);
+  //   }
+  //   console.log(results);
+  //   
   });
-  response.send(results);
+  response.send("results");
 });
 
   
