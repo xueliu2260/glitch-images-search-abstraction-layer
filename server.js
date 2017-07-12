@@ -25,7 +25,7 @@ app.get("/", function (request, response) {
 
 const GoogleImages = require('google-images');
 
-const client = new GoogleImages('017999513681578927553:hwq-m42zzwq', 'AIzaSyDzJHUKZc1WuqYczCjCU7KZ5SYsxHTd7e0');
+const client = new GoogleImages('017999513681578927553:hwq-m42zzwq', 'AIzaSyCshB-l-EhZaax-J8w4HKXWXtY33yKTitM');
 
 // client.search('Steve Angello')
 // 	.then(images => {
@@ -46,20 +46,20 @@ const client = new GoogleImages('017999513681578927553:hwq-m42zzwq', 'AIzaSyDzJH
 // 	});
 
 // // paginate results
-// client.search('Steve Angello', {page: 2}).then(function(images){
-//   console.log("here");
-//   console.log(images.length);
-// });
+client.search('Steve Angello', {page: 2}).then(function(images){
+  console.log("here");
+  console.log(images.length);
+});
 
-var mongodb = require('mongodb');
+// var mongodb = require('mongodb');
 
-//We need to work with "MongoClient" interface in order to connect to a mongodb server.
-var MongoClient = mongodb.MongoClient;
-var test = require('assert');
-// // Connection URL. This is where your mongodb server is running.
+// //We need to work with "MongoClient" interface in order to connect to a mongodb server.
+// var MongoClient = mongodb.MongoClient;
+// var test = require('assert');
+// // // Connection URL. This is where your mongodb server is running.
 
-// //(Focus on This Variable)
-var url = 'mongodb://liuerbaozi2260:zja900530@ds137220.mlab.com:37220/glitch-project';      
+// // //(Focus on This Variable)
+// var url = 'mongodb://liuerbaozi2260:zja900530@ds137220.mlab.com:37220/glitch-project';      
 // //(Focus on This Variable)
 // var collection;
 // MongoClient.connect(url, function (err, db) {
