@@ -42,9 +42,75 @@
         <gcse:searchbox ></gcse:searchbox>
       </div>-->
 
-      <div class="results">
-        
-      </div>
+      <ol>
+        <li>I can get the image URLs, alt text and page urls for a set of images relating to a given search string.</li>
+        <li>I can paginate through the responses by adding a ?offset=2 parameter to the URL.</li>
+        <li>I can get a list of the most recently submitted search strings.</li>
+      </ol>
+      <h2>For example</h2>
+      <p>input <span>https://images-search-abstraction-layer-baozi.glitch.me/api/imagesearch/cute%20dogs?offset=2</span><br>will get: [
+        {
+            "url": "http://list.lisimg.com/image/6223499/500full.jpg",
+            "thumbnail-url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8aAYpr80xjzhFVXZcz_QtiH4O9csNQ2c9Pp2LfKYARQVY1YEEP20Gza2e",
+            "thumbnail-description": null,
+            "thumbnail-parentPage": null
+        },
+        {
+            "url": "https://lh3.googleusercontent.com/9xVT1fOcvcV8jbjEYP2m9K-wry7SN8opDHefAQhDkkH5Tv_kTLfvD0jJDX5CG0d9Cw=w300",
+            "thumbnail-url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDml6EC1JXPQ5LJZJbAiKSunq5Glcsah2YT7ouQTU7AOZtcJmjZm9y9w",
+            "thumbnail-description": null,
+            "thumbnail-parentPage": null
+        },
+        {
+            "url": "https://pbs.twimg.com/media/B0adM-rCAAE8fJt.jpg",
+            "thumbnail-url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrHVt_H-DpvdRwvGPMxC2RYe0lMjk8rjl9ppH6Efg0UsMD2gMLwohHgDUCjw",
+            "thumbnail-description": null,
+            "thumbnail-parentPage": null
+        },
+        {
+            "url": "http://eskipaper.com/images/cute-model-wallpaper-1.jpg",
+            "thumbnail-url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQZnuJO-DJs47GaBJPDC9_DugJ_xHAhCNrTtGw8lJDk76FqQNnBj9_tEE",
+            "thumbnail-description": null,
+            "thumbnail-parentPage": null
+        },
+        {
+            "url": "http://www.thetimesbusiness.com/wp-content/uploads/2017/02/Shamili-Super-Cute-Pics-44.jpg",
+            "thumbnail-url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHPJBzmLfVBNfzkG8j6NQJOiJb5JevxJtvt3xL0bwhrm110GKvkqXvWrw",
+            "thumbnail-description": null,
+            "thumbnail-parentPage": null
+        },
+        {
+            "url": "https://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=22133190",
+            "thumbnail-url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa5S6P5ALJi6vGxM36jfiXL6i__JxFWzaCcUxScKRn4cSRYb5zfvrs7uU",
+            "thumbnail-description": null,
+            "thumbnail-parentPage": null
+        },
+        {
+            "url": "http://3.bp.blogspot.com/-T1yzz4fQqRg/Tgl5tPxDGjI/AAAAAAAAFZ0/U2LsmA6mq1I/s1600/Youth+Beauty+%25281%2529.jpg",
+            "thumbnail-url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLa9M-3hgEv8WLyj80Ijj9uKHvyVTI0r5xRmTaVbGwuLh7oB4OvLO54FA",
+            "thumbnail-description": null,
+            "thumbnail-parentPage": null
+        },
+        {
+            "url": "https://ae01.alicdn.com/kf/HTB1LeH8KpXXXXXrXFXXq6xXFXXXP/Listen-to-the-waves-super-cute-piece-swimsuit-skirt-children-dress-baby-girl-swimsuit-models-swimsuit.jpg_640x640.jpg",
+            "thumbnail-url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPBx8ORDZR3fn0cLwz7soeTimXNoDiMkmJsDY13CLWQLpkIDSb6Sa15nBG",
+            "thumbnail-description": null,
+            "thumbnail-parentPage": null
+        },
+        {
+            "url": "http://im.rediff.com/getahead/2016/dec/01victoria-fashion-show20.jpg",
+            "thumbnail-url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRczaqN1f-5BTdQPV7Zzhlhyian7nnVZ3c3Ej-otU8dJ6_BsnK-TdJZ4bQ2",
+            "thumbnail-description": null,
+            "thumbnail-parentPage": null
+        },
+        {
+            "url": "https://www.daz3d.com/media/catalog/product/cache/1/image/960x1248/17f82f742ffe127f42dca9de82fb58b1/0/0/00-main-cute3ds-cute-dress-daz3d.jpg",
+            "thumbnail-url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRL0zGJJ3b32i7_B_GC6DNQfOm7xak6kA0DTVy6x87BWKeRy6zuhNJwTwc",
+            "thumbnail-description": null,
+            "thumbnail-parentPage": null
+        }
+    ]</p>
+      <p>input <span>https://images-search-abstraction-layer-baozi.glitch.me/api/latest/imagesearch/</span><br>will get: [{"url":"http://www.cutestpaw.com/wp-content/uploads/2011/11/OIo.jpg","thumbnail-url":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAQpdfjaLq9sKKTmlr98CC26XH7wY3XZYwXfksNu1cp5GYsE8LartzDN0","thumbnail-description":null,"thumbnail-parentPage":null},{"url":"https://s-media-cache-ak0.pinimg.com/736x/52/fd/5a/52fd5a15b32abad7bd304236ca6dbd38--cat-and-kittens-cat-cute.jpg","thumbnail-url":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcM-BcmJc1dE1Q6d8jPkU7pjpWAlZiuJs7e7wzLsK-7YBZ-tidPfBmjgQ","thumbnail-description":null,"thumbnail-parentPage":null},{"url":"http://www.cutestpaw.com/wp-content/uploads/2011/11/Henke.jpg","thumbnail-url":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI2SYKadYvMeYSi3rfEFpJn6RS8A-YoZhv8BZ6k2gRA_6bl8szk3l4jn8","thumbnail-description":null,"thumbnail-parentPage":null},{"url":"https://s-media-cache-ak0.pinimg.com/736x/e7/0a/af/e70aafd92bf0740c0fbe3d5cc0ca12c7--litter-of-kittens-cats-cute-kittens.jpg","thumbnail-url":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRysqENHCOGOCzVamRke2WX1R3zOALB2TpKqTnvo_mx70eUkBRzkZJUBKc","thumbnail-description":null,"thumbnail-parentPage":null},{"url":"https://lh3.googleusercontent.com/pj0jrgFCXjNtAkktmst6H1qaU4F9nmOE5b7_kAcwgYfoQfF7NQXQo3uu2lteXqFrEsg=w300","thumbnail-url":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT46wRbP8-csVbTDJnNG6AZAI_1Jz8d9iDolpRoff_N_FWH_ypZt4-Q2A","thumbnail-description":null,"thumbnail-parentPage":null},{"url":"https://s-media-cache-ak0.pinimg.com/736x/ba/03/23/ba03237a6d6499f0e2633314826e1526--cutest-animals-baby-animals.jpg","thumbnail-url":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI4bkMvVcFFLmjQ72DuWTYPJkVxAWH7c1LMzItdcv7_yHlH6v58x7hyQVYoA","thumbnail-description":null,"thumbnail-parentPage":null},{"url":"https://pbs.twimg.com/profile_images/602729491916435458/hSu0UjMC.jpg","thumbnail-url":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6KsmyMDishDLqklW8J5ZE-sldOuyAO5V2jb3F5tZmvUfM0UbLUJPr4Q","thumbnail-description":null,"thumbnail-parentPage":null},{"url":"https://s-media-cache-ak0.pinimg.com/736x/44/c7/2e/44c72e8458a944196133803dc8d0cd9c--calico-cats-animal-babies.jpg","thumbnail-url":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7-J2Y3Vyo0h8nBQz1Mo5-smFsk1tkPMaaDGWVFect1fAw9ZOosw2KPmJy","thumbnail-description":null,"thumbnail-parentPage":null},{"url":"https://www.funnypica.com/wp-content/uploads/2015/05/TOP-30-Cute-Cats-Cute-Cat-30.jpg","thumbnail-url":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXh_6ZA6htg9cdQWGqaV3s1plbWGan-CxHWB-jv74sT8ZS6uw0QYethqmE","thumbnail-description":null,"thumbnail-parentPage":null},{"url":"https://pbs.twimg.com/profile_images/571260078292865024/0EvP5vXn.jpeg","thumbnail-url":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTY14lISrmvjawO3uiCnY1n2EPgxt5rEnvt6CYdH8VwKTSIldOUyaIng","thumbnail-description":null,"thumbnail-parentPage":null}]</p>
     </main>
 
     
