@@ -97,7 +97,7 @@ app.get("/api/imagesearch/:str", function (request, response) {
   // //   console.log(results);
   // //   
   // });
-  client.search('Steve Angello', {page: 2});
+  //client.search('Steve Angello', {page: 2});
   response.send("results");
 });
 
