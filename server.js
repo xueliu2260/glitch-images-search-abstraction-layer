@@ -1,14 +1,15 @@
 
-
-
-
-
 // server.js
 // where your node app starts
 
 // init project
+
+
+
+ 
 var express = require('express');
 var app = express();
+
 
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
@@ -18,90 +19,127 @@ app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (request, response) {
-  
   response.sendFile(__dirname + '/views/index.html');
-  
 });
-
-const GoogleImages = require('google-images');
-
-const client = new GoogleImages('002557128220856549060:icz8qa-lijq', 'AIzaSyD1DxIyGUgW8AoA6CtawmvVk9eepR-mjXM');
-
-// client.search('Steve Angello')
-// 	.then(images => {
-// 		/*
-// 		[{
-// 			"url": "http://steveangello.com/boss.jpg",
-// 			"type": "image/jpeg",
-// 			"width": 1024,
-// 			"height": 768,
-// 			"size": 102451,
-// 			"thumbnail": {
-// 				"url": "http://steveangello.com/thumbnail.jpg",
-// 				"width": 512,
-// 				"height": 512
-// 			}
-// 		}]
-// 		 */
-// 	});
-
-// // paginate results
-// client.search('Steve Angello', {page: 2}).then(function(images){
-//   console.log("here");
-//   console.log(images.length);
-// });
-
-// var mongodb = require('mongodb');
-
-// //We need to work with "MongoClient" interface in order to connect to a mongodb server.
-// var MongoClient = mongodb.MongoClient;
-// var test = require('assert');
-// // // Connection URL. This is where your mongodb server is running.
-
-// // //(Focus on This Variable)
-// var url = 'mongodb://liuerbaozi2260:zja900530@ds137220.mlab.com:37220/glitch-project';      
-// //(Focus on This Variable)
-// var collection;
-// MongoClient.connect(url, function (err, db) {
-// if (err) {
-//   console.log('Unable to connect to the mongoDB server. Error:', err);
-//   } else {
-//   console.log('Connection established to ', url);
-
-//   // Create a collection
-//   collection = db.collection('url-shortener-database');
-//   // Insert the docs
-  
-
-//   }
-// })
-var querySearch = "";
+var queryStr = "";
 var queryPage = 1;
 
+//connect to goole customer search engine
+const GoogleImages = require('google-images');
+ 
+const client = new GoogleImages('017999513681578927553:hwq-m42zzwq', 'AIzaSyDzJHUKZc1WuqYczCjCU7KZ5SYsxHTd7e0');
+
+
+//connect to mongoDB
+var mongodb = require('mongodb');
+
+//We need to work with "MongoClient" interface in order to connect to a mongodb server.
+var MongoClient = mongodb.MongoClient;
+var test = require('assert');
+// // Connection URL. This is where your mongodb server is running.
+
+// //(Focus on This Variable)
+var url = 'mongodb://liuerbaozi2260:zja900530@ds137220.mlab.com:37220/glitch-project';      
+// //(Focus on This Variable)
+var collection;
+
+
+
 app.get("/api/imagesearch/:str", function (request, response) {
-  var results = [];
-  querySearch = request.params.str;
+  // console.log(getAllUrlParams(request.url).offset);
+  // console.log(request.params.str);
+  queryStr = request.params.str.toString();
   queryPage = parseInt(getAllUrlParams(request.url).offset);
-  // console.log(querySearch);
-  // console.log(queryPage);
-  client.search("a").then(function(images){
-    console.log(images.length);
-  //   for(var i = 0; i < images.length; i++){
-  //     var result = {};
-  //     result["thumbnail-description"] = images[i].thumbnail.description;
-  //     result["thumbnail-parentPage"] = images[i].thumbnail.parentPage;
-  //     result["thumbnail-url"] = images[i].thumbnail.url;
-  //     result["url"] = images[i].url;
-  //     results.push(result);
-  //   }
-  //   console.log(results);
-  //   
-  });
-  //client.search('Steve Angello', {page: 2});
-  response.send("results");
+  var dreams = [];
+  
+
+
+	client.search(queryStr , {page: queryPage}).then(function (images){
+  //var gambar = JSON.parse(images)
+  console.log(images.length);
+  //console.log(images[0].thumbnail.description);
+  for(var i = 0; i < images.length; i++){
+    var oneDream = {};
+    oneDream["url"] = images[i].url;
+    oneDream["thumbnail-url"] = images[i].thumbnail.url;
+    oneDream["thumbnail-description"] = images[i].thumbnail.description;
+    oneDream["thumbnail-parentPage"] = images[i].thumbnail.parentPage;
+    dreams.push(oneDream);
+  }
+    
+  MongoClient.connect(url, function (err, db) {
+    if (err) {
+      console.log('Unable to connect to the mongoDB server. Error:', err);
+      } else {
+      console.log('Connection established to ', url);
+
+      // Create a collection
+      collection = db.collection('Image-Search-Abstraction-Layer');
+      // Insert the docs
+      var id = Date.now();
+      collection.insertOne({"_id":id, "data": dreams});
+      db.close();
+        console.log("here");
+      response.send(dreams);
+
+      }
+  })
+  
+	});
+  
 });
 
+app.get("/api/latest/imagesearch/", function (request, response) {
   
+  
+  MongoClient.connect(url, function (err, db) {
+    if (err) {
+      console.log('Unable to connect to the mongoDB server. Error:', err);
+      } else {
+      console.log('Connection established to ', url);
+
+      // Create a collection
+      collection = db.collection('Image-Search-Abstraction-Layer');
+      // Insert the docs
+      var result = collection.find().sort({_id:-1}).limit(1);
+        //console.log(result.pretty());
+      result.each(function(err, item) {
+
+        // If the item is null then the cursor is exhausted/empty and closed
+        if(item == null) {
+
+          // Show that the cursor is closed
+          result.toArray(function(err, items) {
+            result.ok(err != null);
+
+            // Let's close the db
+            db.close();
+          });
+          
+            
+        }else{
+          db.close();
+          response.send(item.data);
+        }
+      });
+      
+      
+      
+    }
+})
+  
+  // console.log(result);
+  // response.send(result);
+  
+});
+// could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
+// app.post("/", function (request, response) {
+//   dreams.push(request.query.dream);
+//   response.sendStatus(200);
+// });
+
+// Simple in-memory store for now
+
 
 
 
@@ -109,7 +147,6 @@ app.get("/api/imagesearch/:str", function (request, response) {
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
-
 function getAllUrlParams(url) {
 
   // get query string from url (optional) or window
