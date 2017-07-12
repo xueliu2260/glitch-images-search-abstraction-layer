@@ -25,7 +25,7 @@ app.get("/", function (request, response) {
 
 const GoogleImages = require('google-images');
 
-const client = new GoogleImages('017999513681578927553:hwq-m42zzwq', 'AIzaSyCshB-l-EhZaax-J8w4HKXWXtY33yKTitM');
+const client = new GoogleImages('002557128220856549060:icz8qa-lijq', 'AIzaSyD1DxIyGUgW8AoA6CtawmvVk9eepR-mjXM');
 
 // client.search('Steve Angello')
 // 	.then(images => {
@@ -46,10 +46,10 @@ const client = new GoogleImages('017999513681578927553:hwq-m42zzwq', 'AIzaSyCshB
 // 	});
 
 // // paginate results
-client.search('Steve Angello', {page: 2}).then(function(images){
-  console.log("here");
-  console.log(images.length);
-});
+// client.search('Steve Angello', {page: 2}).then(function(images){
+//   console.log("here");
+//   console.log(images.length);
+// });
 
 // var mongodb = require('mongodb');
 
@@ -84,7 +84,7 @@ app.get("/api/imagesearch/:str", function (request, response) {
   queryPage = parseInt(getAllUrlParams(request.url).offset);
   // console.log(querySearch);
   // console.log(queryPage);
-  client.search(querySearch, {page: queryPage}).then(function(images){
+  client.search("querySearch").then(function(images){
     console.log(images.length);
   //   for(var i = 0; i < images.length; i++){
   //     var result = {};

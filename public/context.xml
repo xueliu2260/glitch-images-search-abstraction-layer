@@ -8,9 +8,8 @@ keywords="" visible="false" encoding="UTF-8">
        <Label name="_cse_exclude_id" mode="ELIMINATE"/>
      </BackgroundLabels>
    </Context>
-  
 
    <LookAndFeel/>
    <AdSense/>
    <EnterpriseAccount/>
-</CustomSearchEngine>  
+</CustomSearchEngine>   
