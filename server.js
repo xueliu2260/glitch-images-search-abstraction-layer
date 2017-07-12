@@ -84,19 +84,19 @@ app.get("/api/imagesearch/:str", function (request, response) {
   queryPage = parseInt(getAllUrlParams(request.url).offset);
   // console.log(querySearch);
   // console.log(queryPage);
-  // client.search("a").then(function(images){
-  //   console.log(images.length);
-  // //   for(var i = 0; i < images.length; i++){
-  // //     var result = {};
-  // //     result["thumbnail-description"] = images[i].thumbnail.description;
-  // //     result["thumbnail-parentPage"] = images[i].thumbnail.parentPage;
-  // //     result["thumbnail-url"] = images[i].thumbnail.url;
-  // //     result["url"] = images[i].url;
-  // //     results.push(result);
-  // //   }
-  // //   console.log(results);
-  // //   
-  // });
+  client.search("a").then(function(images){
+    console.log(images.length);
+  //   for(var i = 0; i < images.length; i++){
+  //     var result = {};
+  //     result["thumbnail-description"] = images[i].thumbnail.description;
+  //     result["thumbnail-parentPage"] = images[i].thumbnail.parentPage;
+  //     result["thumbnail-url"] = images[i].thumbnail.url;
+  //     result["url"] = images[i].url;
+  //     results.push(result);
+  //   }
+  //   console.log(results);
+  //   
+  });
   //client.search('Steve Angello', {page: 2});
   response.send("results");
 });
