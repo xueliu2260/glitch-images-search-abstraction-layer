@@ -60,32 +60,42 @@ var test = require('assert');
 // //(Focus on This Variable)
 var url = 'mongodb://liuerbaozi2260:zja900530@ds137220.mlab.com:37220/glitch-project';      
 // //(Focus on This Variable)
-var collection;
-MongoClient.connect(url, function (err, db) {
-if (err) {
-  console.log('Unable to connect to the mongoDB server. Error:', err);
-  } else {
-  console.log('Connection established to ', url);
+// var collection;
+// MongoClient.connect(url, function (err, db) {
+// if (err) {
+//   console.log('Unable to connect to the mongoDB server. Error:', err);
+//   } else {
+//   console.log('Connection established to ', url);
 
-  // Create a collection
-  collection = db.collection('url-shortener-database');
-  // Insert the docs
+//   // Create a collection
+//   collection = db.collection('url-shortener-database');
+//   // Insert the docs
   
 
-  }
-})
+//   }
+// })
 var querySearch = "";
 var queryPage = 1;
 
 app.get("/api/imagesearch/:str", function (request, response) {
-  var 
+  var results = [];
   querySearch = request.params.str;
   queryPage = parseInt(getAllUrlParams(request.url).offset);
   // console.log(querySearch);
   // console.log(queryPage);
   client.search(querySearch, {page: queryPage}).then(function(images){
     console.log(images.length);
+    for(var i = 0; i < images.length; i++){
+      var result = {};
+      result["thumbnail-description"] = images[i].thumbnail.description;
+      result["thumbnail-parentPage"] = images[i].thumbnail.parentPage;
+      result["thumbnail-url"] = images[i].thumbnail.url;
+      result["url"] = images[i].url;
+      results.push(result);
+    }
+    console.log(results);
   });
+  response.send(results);
 });
 
   
